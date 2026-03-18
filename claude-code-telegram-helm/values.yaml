@@ -1,0 +1,12 @@
+image:
+  repository: "lhr.ocir.io/lr7uc6l49odc/claude-code-telegram"
+  tag: "latest"
+  pullPolicy: Always
+
+env:
+  telegramSecretName: "bot-secrets"
+  workDir: "/workspace"
+
+persistence:
+  storageClass: "oci-bv"
+  size: 50Gi

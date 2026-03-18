@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  serviceName: {{ .Release.Name }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: claude-bot
+  template:
+    metadata:
+      labels:
+        app: claude-bot
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: bot
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+        - name: TELEGRAM_BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.env.telegramSecretName }}
+              key: TELEGRAM_BOT_TOKEN
+        - name: ALLOWED_USERS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.env.telegramSecretName }}
+              key: ALLOWED_USERS
+        - name: WORK_DIR
+          value: {{ .Values.env.workDir }}
+        volumeMounts:
+        - name: storage
+          mountPath: /root      # Persists Claude Auth
+        - name: storage
+          mountPath: /workspace # Persists your C# / Postgres Code
+      # This ensures the bot runs with enough power for .NET builds
+      resources:
+        requests:
+          cpu: 500m
+          memory: 1Gi
+        limits:
+          cpu: 1000m
+          memory: 2Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.persistence.storageClass }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size }}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: claude-code-telegram
+description: A Helm chart for the Claude Code Telegram Bot on OKE
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
