@@ -35,13 +35,17 @@ spec:
         - name: TELEGRAM_BOT_USERNAME
           value: {{ .Values.env.botUsername | quote }}
         - name: APPROVED_DIRECTORY
-          value: "/workspace"
+          value: {{ .Values.env.approvedDirectory | quote }}
         - name: WORK_DIR
-          value: {{ .Values.env.workDir }}
+          value: {{ .Values.env.workDir | quote }}
         - name: PYTHONPATH
           value: "/app"
         - name: XDG_CONFIG_HOME
           value: "/data/.config"
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "ln -sf /data/.claude /root/.claude"]
         volumeMounts:
         - name: storage
           mountPath: /data
