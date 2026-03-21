@@ -32,14 +32,19 @@ spec:
             secretKeyRef:
               name: {{ .Values.env.telegramSecretName }}
               key: ALLOWED_USERS
+        - name: TELEGRAM_BOT_USERNAME
+          value: {{ .Values.env.botUsername | quote }}
+        - name: APPROVED_DIRECTORY
+          value: "/workspace"
         - name: WORK_DIR
           value: {{ .Values.env.workDir }}
+        - name: PYTHONPATH
+          value: "/app"
+        - name: XDG_CONFIG_HOME
+          value: "/data/.config"
         volumeMounts:
         - name: storage
-          mountPath: /root      # Persists Claude Auth
-        - name: storage
-          mountPath: /workspace # Persists your C# / Postgres Code
-      # This ensures the bot runs with enough power for .NET builds
+          mountPath: /data
       resources:
         requests:
           cpu: 500m

@@ -5,7 +5,9 @@ image:
 
 env:
   telegramSecretName: "bot-secrets"
-  workDir: "/workspace"
+  workDir: "/data/workspace"
+  botUsername: "Jemmy8oyCCTBot"
+  approvedDirectory: "/data/workspace"
 
 persistence:
   storageClass: "oci-bv"
