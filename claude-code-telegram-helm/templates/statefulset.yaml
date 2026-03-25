@@ -55,7 +55,13 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "mkdir -p /data/.claude && ln -sf /data/.claude /root/.claude"]
+              command: 
+                - "/bin/sh"
+                - "-c"
+                - >
+                  mkdir -p /data/.claude && 
+                  ln -sf /data/.claude /root/.claude &&
+                  ln -sf /data/workspace/.clauderc /root/.clauderc
         volumeMounts:
         - name: storage
           mountPath: /data
