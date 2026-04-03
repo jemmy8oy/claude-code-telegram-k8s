@@ -60,8 +60,7 @@ spec:
                 - "-c"
                 - >
                   mkdir -p /data/.claude && 
-                  ln -sf /data/.claude /root/.claude &&
-                  ln -sf /data/workspace/.clauderc /root/.clauderc
+                  ln -sf /data/.claude /root/.claude
         volumeMounts:
         - name: storage
           mountPath: /data
