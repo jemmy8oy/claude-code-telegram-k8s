@@ -1,5 +1,7 @@
 image:
-  repository: "lhr.ocir.io/lr7uc6l49odc/claude-code-telegram"
+  # Format: <region>.ocir.io/<tenancy-namespace>/<image-name>
+  # Override at deploy time: helm upgrade ... --set image.repository=<your-registry>/<your-namespace>/claude-code-telegram
+  repository: "<region>.ocir.io/<tenancy-namespace>/claude-code-telegram"
   tag: "latest"
   pullPolicy: Always
 
