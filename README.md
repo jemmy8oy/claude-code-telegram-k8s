@@ -12,23 +12,17 @@ Go to your repository → **Settings → Secrets and variables → Actions → N
 
 | Secret | Description | Example |
 |--------|-------------|---------|
-| `OCIR_REGISTRY` | OCIR regional endpoint | `lhr.ocir.io` |
-| `OCIR_NAMESPACE` | OCI tenancy namespace (object storage namespace) | `lr7uc6l49odc` |
-| `OCIR_USERNAME` | Full OCIR login username (see note below) | `lr7uc6l49odc/oracleidentitycloudservice/user@example.com` |
+| `OCIR_REGISTRY` | OCIR regional endpoint | `<region>.ocir.io` |
+| `OCIR_NAMESPACE` | OCI tenancy namespace (object storage namespace) | `<your-tenancy-namespace>` |
+| `OCIR_USERNAME` | Full OCIR login username (see note below) | `<tenancy-namespace>/user@example.com` |
 | `OCIR_AUTH_TOKEN` | OCI Auth Token (not your account password) | *(generated in OCI Console)* |
 
 #### Finding your OCIR username
 
-Your OCIR username depends on how you log in to OCI:
-
-- **Federated users** (Oracle Identity Cloud Service / SSO):
-  ```
-  <tenancy-namespace>/oracleidentitycloudservice/<username-or-email>
-  ```
-- **Local OCI users** (non-federated):
-  ```
-  <tenancy-namespace>/<username>
-  ```
+Your OCIR username is:
+```
+<tenancy-namespace>/<username-or-email>
+```
 
 To find your tenancy namespace: OCI Console → Profile (top right) → Tenancy → **Object Storage Namespace**.
 
@@ -54,9 +48,7 @@ The `values.yaml` in `claude-code-telegram-helm/` uses a placeholder for the ima
 
 ```bash
 helm upgrade --install claude-code-telegram ./claude-code-telegram-helm \
-  --set image.repository=lhr.ocir.io/<your-tenancy-namespace>/claude-code-telegram \
-  --set image.tag=latest \
-  --namespace default
+  --set image.repository=<region>.ocir.io/<your-tenancy-namespace>/claude-code-telegram
 ```
 
 ### Kubernetes Secrets
