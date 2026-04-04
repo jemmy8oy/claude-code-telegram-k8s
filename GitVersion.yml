@@ -2,7 +2,7 @@ mode: Mainline
 branches:
   main:
     regex: ^main$
-    label: ""
+    tag: ""
     increment: Patch
 ignore:
   sha: []
