@@ -48,9 +48,7 @@ The `values.yaml` in `claude-code-telegram-helm/` uses a placeholder for the ima
 
 ```bash
 helm upgrade --install claude-code-telegram ./claude-code-telegram-helm \
-  --set image.repository=<region>.ocir.io/<your-tenancy-namespace>/claude-code-telegram \
-  --set image.tag=latest \
-  --namespace default
+  --set image.repository=<region>.ocir.io/<your-tenancy-namespace>/claude-code-telegram
 ```
 
 ### Kubernetes Secrets
