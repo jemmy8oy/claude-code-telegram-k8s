@@ -11,20 +11,22 @@ RUN mkdir -p -m 755 /etc/apt/keyrings \
   && chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
-# 3. Install .NET SDK (Microsoft Repo for Debian 12)
-RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-  && dpkg -i packages-microsoft-prod.deb \
-  && rm packages-microsoft-prod.deb
-
-# 4. Final Install (GH, .NET, Node)
-# Note: I'm adding 'nodejs' and 'npm' here. 
-# If this fails, we can switch to the NodeSource script.
+# 3. Install GH, Node, and dependencies for .NET
 RUN apt-get update && apt-get install -y \
   gh \
-  dotnet-sdk-8.0 \
   nodejs \
   npm \
+  libicu-dev \
   && rm -rf /var/lib/apt/lists/*
+
+# 4. Install .NET SDK via Official Script
+# This works for both amd64 and arm64
+RUN curl -dot-net -fsSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version latest --channel 8.0 --install-dir /usr/local/bin
+
+# Ensure dotnet is in the PATH
+ENV PATH="${PATH}:/usr/local/bin"
+# Trigger first-run experience to populate local package cache
+RUN dotnet --version
 
 # 5. Install Claude Code & Tools
 RUN npm install -g @anthropic-ai/claude-code serve
