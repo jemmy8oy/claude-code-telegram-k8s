@@ -18,6 +18,8 @@ persistence:
 
 webhook:
   enabled: true
-  host: "bot-webhook.balenthiran.co.uk"  # subdomain to register in your DNS
+  host: "balenthiran.co.uk"  # same host as the main site; /webhooks path routes to the bot
+  # TLS secret must match the existing cert for balenthiran.co.uk
+  tlsSecretName: "balenthiran-co-uk-tls"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"

@@ -26,5 +26,5 @@ spec:
   tls:
   - hosts:
     - {{ .Values.webhook.host }}
-    secretName: {{ .Release.Name }}-webhook-tls
+    secretName: {{ .Values.webhook.tlsSecretName }}
 {{- end }}
