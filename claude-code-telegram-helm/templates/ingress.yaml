@@ -1,0 +1,30 @@
+{{- if .Values.webhook.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-webhook
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: claude-bot
+  {{- with .Values.webhook.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: {{ .Values.webhook.host }}
+    http:
+      paths:
+      - path: /webhooks
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}-webhook
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - {{ .Values.webhook.host }}
+    secretName: {{ .Release.Name }}-webhook-tls
+{{- end }}
