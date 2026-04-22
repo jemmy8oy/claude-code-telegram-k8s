@@ -15,3 +15,12 @@ env:
 persistence:
   storageClass: "oci-bv"
   size: 50Gi
+
+webhook:
+  enabled: true
+  host: "balenthiran.co.uk"  # same host as the main site; /webhooks path routes to the bot
+  # Reuse the existing TLS secret managed by the balenthiranhelm release.
+  # No cert-manager annotation here — cert-manager already owns this secret
+  # and adding the annotation would cause a duplicate certificate conflict.
+  tlsSecretName: "balenthiran-tls"
+  annotations: {}
