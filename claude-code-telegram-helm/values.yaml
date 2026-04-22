@@ -19,7 +19,8 @@ persistence:
 webhook:
   enabled: true
   host: "balenthiran.co.uk"  # same host as the main site; /webhooks path routes to the bot
-  # TLS secret must match the existing cert for balenthiran.co.uk
+  # Reuse the existing TLS secret managed by the balenthiranhelm release.
+  # No cert-manager annotation here — cert-manager already owns this secret
+  # and adding the annotation would cause a duplicate certificate conflict.
   tlsSecretName: "balenthiran-tls"
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  annotations: {}
