@@ -20,6 +20,6 @@ webhook:
   enabled: true
   host: "balenthiran.co.uk"  # same host as the main site; /webhooks path routes to the bot
   # TLS secret must match the existing cert for balenthiran.co.uk
-  tlsSecretName: "balenthiran-co-uk-tls"
+  tlsSecretName: "balenthiran-tls"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
