@@ -50,6 +50,8 @@ spec:
           value: {{ .Values.env.workDir | quote }}
         - name: CLAUDE_TIMEOUT_SECONDS
           value: {{ .Values.env.claudeTimeoutSeconds | quote }}
+        - name: CLAUDE_MAX_TURNS
+          value: {{ .Values.env.claudeMaxTurns | quote }}
         - name: PYTHONPATH
           value: "/app"
         - name: XDG_CONFIG_HOME
