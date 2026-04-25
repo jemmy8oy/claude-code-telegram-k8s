@@ -37,7 +37,7 @@ RUN npm install -g @anthropic-ai/claude-code serve \
 
 # 7. Setup the Telegram Bot Source
 WORKDIR /app
-RUN git clone --depth 1 https://github.com/jemmy8oy/claude-code-telegram.git . && git checkout 1521b1c
+RUN git clone --depth 1 https://github.com/jemmy8oy/claude-code-telegram.git . && git checkout c4dd023
 
 # 8. Install Python Dependencies
 # Included pyjwt/cryptography so the bot can handle the .pem handshake
