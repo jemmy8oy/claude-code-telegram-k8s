@@ -32,6 +32,11 @@ spec:
             secretKeyRef:
               name: {{ .Values.env.telegramSecretName }}
               key: ALLOWED_USERS
+        - name: NOTIFICATION_CHAT_IDS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.env.telegramSecretName }}
+              key: NOTIFICATION_CHAT_IDS
         - name: GH_APP_ID
           valueFrom:
             secretKeyRef:
