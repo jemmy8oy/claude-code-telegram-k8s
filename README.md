@@ -1,3 +1,5 @@
+Author: jemmy8oy
+
 # Claude Code Telegram Bot
 
 A Telegram bot that integrates with Claude Code CLI, deployed on Oracle Kubernetes Engine (OKE) via Helm.
